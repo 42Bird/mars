@@ -84,8 +84,8 @@ def start(message: str, res=False) -> str:
     
             
                     
-            os.system("pm2 stop main")
-            os.system("pm2 start main")      
+            os.system("pm2 restart main")
+                  
                     
 
         
@@ -322,9 +322,10 @@ def surname(message: str, res=False) -> str:
                         except:
                             bot.send_message(message.chat.id, text="Больше не найдено! Базы дополняются и обновляются", reply_markup=markup)
                             
-                nemezida_f(name)   
-            os.system("pm2 stop main")
-            os.system("pm2 start main")                 
+                nemezida_f(name)  
+                bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
+            os.system("pm2 restart main")
+                           
                                         
                 
                 
@@ -553,8 +554,9 @@ def name(message: str, res=False) -> str:
                             bot.send_message(message.chat.id, text="Введите только имя и фамилию!", reply_markup=markup)
                             return         
                 nemezida_name(name)
-            os.system("pm2 stop main")
-            os.system("pm2 start main")                                                                        
+                bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
+            os.system("pm2 restart main")
+                                                                               
         
         
 @bot.message_handler(commands=["number"])
@@ -782,16 +784,17 @@ def number(message: str, res=False) -> str:
                             bot.send_message(message.chat.id, text="Введите номер телефона!", reply_markup=markup)
                             return         
                 nemezida_number(name)   
-            os.system("pm2 stop main")
-            os.system("pm2 start main")
+                bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
+            os.system("pm2 restart main")
+           
             
 
 @bot.message_handler(commands=['restart'])
 def restart(message):
     bot.send_message(message.chat.id, text="Обновление данных...")
     # Перезапуск бота
-    os.system("pm2 stop main")
-    os.system("pm2 start main")
+    os.system("pm2 restart main")
+
                 
 # Запускаем бота
 bot.polling(none_stop=True, interval=0)
