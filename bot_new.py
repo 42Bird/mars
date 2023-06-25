@@ -84,7 +84,9 @@ def start(message: str, res=False) -> str:
     
             
                     
-            os.system("pm2 restart main")
+            #os.system("pm2 restart main")
+            bot.send_message(message.chat.id, text="Обновление данных...")
+            os.execv(sys.executable, ['python3 main.py'])
                   
                     
 
@@ -324,7 +326,7 @@ def surname(message: str, res=False) -> str:
                             
                 nemezida_f(name)  
                 bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
-            os.system("pm2 restart main")
+            #os.system("pm2 restart main")
                            
                                         
                 
@@ -555,7 +557,7 @@ def name(message: str, res=False) -> str:
                             return         
                 nemezida_name(name)
                 bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
-            os.system("pm2 restart main")
+            #os.system("pm2 restart main")
                                                                                
         
         
@@ -785,7 +787,7 @@ def number(message: str, res=False) -> str:
                             return         
                 nemezida_number(name)   
                 bot.send_message(message.chat.id, text="Нажмите /restart для обновления данных")
-            os.system("pm2 restart main")
+            #os.system("pm2 restart main")
            
             
 
@@ -793,7 +795,7 @@ def number(message: str, res=False) -> str:
 def restart(message):
     bot.send_message(message.chat.id, text="Обновление данных...")
     # Перезапуск бота
-    os.system("pm2 restart main")
+    os.execv(sys.executable, ['python3 main.py'])
 
                 
 # Запускаем бота
