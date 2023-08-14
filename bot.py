@@ -38,7 +38,29 @@ db = Database(db_file=os.getenv('db_file'))
 
 ==================== /start and check password ===================="""
 
-
+async def return_menu():
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
+       
 class UserPasswordWrong(StatesGroup):
     get_password = State()
 
@@ -61,26 +83,25 @@ async def start(msg: types.Message, state: FSMContext):
     if db.user_password_is_correct(user_id=msg.from_user.id):
         kb = InlineKeyboardMarkup(row_width=2)
         kb.add(
-            InlineKeyboardButton(text='фамилии 👥', callback_data='surname'),
-            InlineKeyboardButton(text='фамилии и имени 👥',
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
                                  callback_data='lname_fname'),
-            InlineKeyboardButton(text='номеру телефона 📱',
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
                                  callback_data='number'),
-            InlineKeyboardButton(text='адресу жительства 🏠',
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
                                  callback_data='address'),
-            InlineKeyboardButton(text='подразделению 🛂',
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
                                  callback_data='structure'),
-            InlineKeyboardButton(text='дате рождения 🎂',
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
                                  callback_data='birth'),
-            InlineKeyboardButton(text='почте 📧', callback_data='mail'),
-            InlineKeyboardButton(text='ДРФО 🏢', callback_data='drfo'),
-            InlineKeyboardButton(text='паспорту 👤', callback_data='passport'),
-            InlineKeyboardButton(text='фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
             InlineKeyboardButton(text='Голосовой поиск 💬',
                                  callback_data='speech')
         )
-
-        await msg.answer(text='Поиск по ...', reply_markup=kb)
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await UserPasswordWrong.get_password.set()
         await msg.answer("Введите пароль!")
@@ -101,29 +122,28 @@ async def get_user_password(msg: types.Message, state: FSMContext):
 
         kb = InlineKeyboardMarkup(row_width=2)
         kb.add(
-            InlineKeyboardButton(text='фамилии 👥', callback_data='surname'),
-            InlineKeyboardButton(text='фамилии и имени 👥',
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
                                  callback_data='lname_fname'),
-            InlineKeyboardButton(text='номеру телефона 📱',
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
                                  callback_data='number'),
-            InlineKeyboardButton(text='адресу жительства 🏠',
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
                                  callback_data='address'),
-            InlineKeyboardButton(text='подразделению 🛂',
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
                                  callback_data='structure'),
-            InlineKeyboardButton(text='дате рождения 🎂',
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
                                  callback_data='birth'),
-            InlineKeyboardButton(text='почте 📧', callback_data='mail'),
-            InlineKeyboardButton(text='ДРФО 🏢', callback_data='drfo'),
-            InlineKeyboardButton(text='паспорту 👤', callback_data='passport'),
-            InlineKeyboardButton(text='фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
             InlineKeyboardButton(text='Голосовой поиск 💬',
                                  callback_data='speech')
         )
-
-        await msg.answer(text='Поиск по ...', reply_markup=kb)
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
     else:
-        await msg.answer('Не верный пароль!')
+        await msg.answer('Неверный пароль!')
 
 """
 
@@ -172,8 +192,51 @@ async def get_surname_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         # time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
 """
 
@@ -201,8 +264,50 @@ async def get_lname_fname_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
 """
 
@@ -231,8 +336,50 @@ async def get_number_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
 """
 
@@ -261,8 +408,50 @@ async def get_address_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 """
 
 ==================== structure [по подразделению] ===================="""
@@ -290,8 +479,50 @@ async def get_structure_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
 """
 
@@ -320,8 +551,50 @@ async def get_birth_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 """
 
 ==================== drfo [по ДРФО] ===================="""
@@ -349,8 +622,50 @@ async def get_drfo_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 """
 
 ==================== passport [по паспорту] ===================="""
@@ -377,8 +692,50 @@ async def get_passport_for_pars(msg: types.Message, state: FSMContext):
             await msg.answer_document(f)
         time.sleep(1)
         os.remove(filename)
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
     else:
         await bot.send_message(chat_id=msg.from_user.id, text=f'По {msg.text} ничего не найдено')
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 """
 
 ==================== photo [по фото] ===================="""
@@ -525,7 +882,10 @@ async def get_photo_for_pars(message: types.Message, state: FSMContext):
                                 shutil.copyfile(f, os.path.join(
                                     resultpath, f'{filename}.jpg'))
 
-                                bot.send_photo(message.chat.id, photo=open(f'{filename}.jpg', 'rb'), caption=f"Имя - {filename[:-4]}")
+                                import telebot
+                                bot_telebot = telebot.TeleBot('6243379302:AAE0bZN3v32-V58wrge8c5ziALrVdX_Ue1c')
+                                bot_telebot.send_photo(message.chat.id, photo = open(f'{filename}.jpg', 'rb'))
+                                bot_telebot.send_message(message.chat.id, text = f"Имя - {filename[4:]}")
                                 # lst_filename.append(filename)
                                 asyncio.run(f(filename))
 
@@ -545,6 +905,27 @@ async def get_photo_for_pars(message: types.Message, state: FSMContext):
 
             for process in processes:
                 process.join()
+                kb = InlineKeyboardMarkup(row_width=2)
+                kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
             # for filename in lst_filename:
             #     await bot.send_photo(message.chat.id, photo=open(f'{filename}.jpg', 'rb'), caption=f"Имя - {filename[:-4]}")
@@ -552,6 +933,27 @@ async def get_photo_for_pars(message: types.Message, state: FSMContext):
     except Exception as e:
         print(e)
         await bot.send_message(message.chat.id, "Произошла ошибка при сохранении фото.")
+        kb = InlineKeyboardMarkup(row_width=2)
+        kb.add(
+            InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
+            InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
+                                 callback_data='lname_fname'),
+            InlineKeyboardButton(text='Поиск по номеру телефона 📱',
+                                 callback_data='number'),
+            InlineKeyboardButton(text='Поиск по адресу жительства 🏠',
+                                 callback_data='address'),
+            InlineKeyboardButton(text='Поиск по подразделению 🛂',
+                                 callback_data='structure'),
+            InlineKeyboardButton(text='Поиск по дате рождения 🎂',
+                                 callback_data='birth'),
+            InlineKeyboardButton(text='Поиск по почте 📧', callback_data='mail'),
+            InlineKeyboardButton(text='Поиск по ДРФО 🏢', callback_data='drfo'),
+            InlineKeyboardButton(text='Поиск по паспорту 👤', callback_data='passport'),
+            InlineKeyboardButton(text='Поиск по фото 🔍', callback_data='photo'),
+            InlineKeyboardButton(text='Голосовой поиск 💬',
+                                 callback_data='speech')
+        )
+        await msg.answer(text='Выберите критерий поиска', reply_markup=kb)
 
 
 """
