@@ -39,7 +39,7 @@ db = Database(db_file=os.getenv('db_file'))
 ==================== /start and check password ===================="""
 
 async def return_menu():
-        kb = InlineKeyboardMarkup(row_width=2)
+        kb = InlineKeyboardMarkup(row_width=1)
         kb.add(
             InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
             InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
@@ -81,7 +81,7 @@ async def start(msg: types.Message, state: FSMContext):
     await msg.answer_photo(photo=photo, caption=caption)
 
     if db.user_password_is_correct(user_id=msg.from_user.id):
-        kb = InlineKeyboardMarkup(row_width=2)
+        kb = InlineKeyboardMarkup(row_width=1)
         kb.add(
             InlineKeyboardButton(text='Поиск по фамилии 👥', callback_data='surname'),
             InlineKeyboardButton(text='Поиск по фамилии и имени 👥',
