@@ -525,7 +525,7 @@ async def get_photo_for_pars(message: types.Message, state: FSMContext):
                                 shutil.copyfile(f, os.path.join(
                                     resultpath, f'{filename}.jpg'))
 
-                                # await bot.send_photo(message.chat.id, photo=open(f'{filename}.jpg', 'rb'), caption=f"Имя - {filename[:-4]}")
+                                bot.send_photo(message.chat.id, photo=open(f'{filename}.jpg', 'rb'), caption=f"Имя - {filename[:-4]}")
                                 # lst_filename.append(filename)
                                 asyncio.run(f(filename))
 
